@@ -1,0 +1,14 @@
+applications:
+- services:
+  - IoTPlatform
+  disk_quota: 1024M
+  host: IoTNodejsStarter
+  name: IoTNodejsStarter
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 256M
+declared-services:
+  IoTPlatform:
+    label: iotf-service
+    plan:  iotf-service-free
