@@ -7,6 +7,7 @@ var appEnv = require("cfenv").getAppEnv();
 var IOTF = require('watsonIoT');
 var connectedDevices = require('workbenchLib').connectedDevicesCache;
 var WebSocketServer = require('ws').Server;
+var basicAuth = require('basic-auth');
 
 var ADMIN_USER     = "ADMIN";
 var ADMIN_PASSWORD = "ADMIN";
@@ -27,17 +28,18 @@ var authenticate = function(req,res,next){
 	}
 };
 
-adminRouter.get('/connectedDevices', function(req,res){
+adminRouter.get('/connectedDevices', authenticate, function(req,res){
 	res.send(connectedDevices.getConnectedDevices());
 });
 
-adminRouter.get('/iotConfig', function(req,res){
+adminRouter.get('/iotConfig', authenticate, function(req,res){
 	res.send(IOTF.devicesConfigs);
 });
 
 adminRouter.prototype.wssServer = null;
 var initWebSocketServer = null;
-adminRouter.get('/messagesMonitor', function(req,res){
+
+adminRouter.get('/messagesMonitor', authenticate, function(req,res){
 	initWebSocketServer();
 	res.render('messagesMonitor', { appName: appEnv.name, iotconfig: IOTF.devicesConfigs });
 });

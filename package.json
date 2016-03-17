@@ -19,7 +19,8 @@
         "ibmiotf": "",
         "fs-extra": "",
         "camelize": "",
-        "app-module-path": ""
+        "app-module-path": "",
+        "basic-auth": ""
     },
     "repository": {}
 }
