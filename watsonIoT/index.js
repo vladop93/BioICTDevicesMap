@@ -1,0 +1,1 @@
+module.exports = require('./iotfClient.js') ({configFile: "watsonIoT/ioTFConfig.json"});
