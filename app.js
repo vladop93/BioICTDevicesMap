@@ -7,6 +7,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var helmet = require('helmet');
 var appEnv = require("cfenv").getAppEnv();	
 
 //if you are debugging on a local machine then edit _debug.js and add services credentials
@@ -46,14 +47,32 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger('dev'));
-//static serve 'public' folder
-app.use(express.static(path.join(__dirname, 'public'), {extensions: ['html', 'htm']}));
+//security
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
+app.disable('x-powered-by');
+//force https for all requests 
+app.use(function (req, res, next) {	
+	res.set({
+		'Cache-Control': 'no-store',
+		'Pragma': 'no-cache'
+	});
+	if(req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === 'http'){
+		res.redirect('https://' + req.headers.host + req.url);
+	}
+	else{
+		next();
+	}
 
+});
 //load Watson IOT platform client
 require('watsonIoT'); 
 
 //load workbench modules
 require('workbenchLib');
+
+//static serve 'public' folder
+app.use(express.static(path.join(__dirname, 'public'), {extensions: ['html', 'htm']}));
 
 //load http routes
 require('routes');
@@ -108,8 +127,8 @@ function onError(error) {
 	}
 
 	var bind = typeof port === 'string' ?
-		 'Pipe ' + port
-				: 'Port ' + port;
+			'Pipe ' + port
+			: 'Port ' + port;
 
 	// handle specific listen errors with friendly messages
 	switch (error.code) {

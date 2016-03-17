@@ -56,7 +56,10 @@ initWebSocketServer = function (){
 		server: app.server,
 		path :  '/admin/messagesMonitor',
 		verifyClient : function (info, callback) { //only allow internal clients from the server origin 
-			var allow = (info.origin === appEnv.url);
+			var allow = (info.origin.toLowerCase() === appEnv.url.toLowerCase());
+			if(!allow){
+				console.log("rejected web socket connection form external origin " + info.origin + " only connection form internal origin " + appEnv.url + " are accepted");
+			}
 			if(!callback){
 				return allow;
 			}

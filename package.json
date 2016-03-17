@@ -20,7 +20,8 @@
         "fs-extra": "",
         "camelize": "",
         "app-module-path": "",
-        "basic-auth": ""
+        "basic-auth": "",
+        "helmet": ""
     },
     "repository": {}
 }
