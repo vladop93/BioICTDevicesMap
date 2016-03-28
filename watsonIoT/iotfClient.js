@@ -83,9 +83,9 @@ iotfClient.prototype.createCommandsMethods = function createCommandsMethonds(){
 		this[config.deviceType] = {};
 		_.each(config.commands, 
 				function(command){
-			var functionName = camelize('send_' + command.name + '_Message');
+			var functionName = camelize('send_' + command + '_Message');
 			var funct =  _.bind(function(deviceID, payload) {
-				return this.sendCommand(config.deviceType, deviceID, command.name, payload);
+				return this.sendCommand(config.deviceType, deviceID, command, payload);
 			},this);
 			//set the method both on this and on this.<deviceType>
 			this[functionName] = funct;
