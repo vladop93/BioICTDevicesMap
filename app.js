@@ -41,16 +41,18 @@ app.set('view engine', 'ejs');
 //TODO uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
-//allow cross domain calls
-app.use(cors());
+//request parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+//logging http requests
 app.use(logger('dev'));
 //security
 app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
 app.disable('x-powered-by');
+//allow cross domain ajax requests
+app.use(cors());
 //force https for all requests 
 app.use(function (req, res, next) {	
 	res.set({
@@ -65,10 +67,11 @@ app.use(function (req, res, next) {
 	}
 
 });
+
 //load Watson IOT platform client
 require('watsonIoT'); 
 
-//load workbench modules
+//load workbench library modules
 require('workbenchLib');
 
 //static serve 'public' folder
