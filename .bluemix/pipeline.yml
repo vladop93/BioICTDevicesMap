@@ -26,7 +26,7 @@ stages:
        application: ${CF_APP}
     script: |
      #!/bin/bash
-     [ -f "bin/deployment/create_services.sh" ] && source bin/deployment/create_services.sh || echo "no create services script"
+     [ -f ".deployScripts/create_services.sh" ] && source .deployScripts/create_services.sh || echo "no create services script"
      cf push "${CF_APP}"
      # View logs
      #cf logs "${CF_APP}" --recent
