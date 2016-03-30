@@ -53,20 +53,6 @@ app.use(helmet.noSniff());
 app.disable('x-powered-by');
 //allow cross domain ajax requests
 app.use(cors());
-//force https for all requests 
-app.use(function (req, res, next) {	
-	res.set({
-		'Cache-Control': 'no-store',
-		'Pragma': 'no-cache'
-	});
-	if(req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === 'http'){
-		res.redirect('https://' + req.headers.host + req.url);
-	}
-	else{
-		next();
-	}
-
-});
 
 //load Watson IOT platform client
 require('watsonIoT'); 
