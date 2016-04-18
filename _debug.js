@@ -12,9 +12,9 @@ process.env.VCAP_SERVICES = (process.env.VCAP_SERVICES) ? process.env.VCAP_SERVI
    "iotf-service": [
       {
          "credentials": {
-            "org": "ohk82b",
-            "apiKey": "a-ohk82b-siokpyhqrc",
-            "apiToken": "a_TMGl1l89KUh4Uwi4"
+            "org": org,
+            "apiKey": apiKey",
+            "apiToken": apiToken
          }
       }
    ]
