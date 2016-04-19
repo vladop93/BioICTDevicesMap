@@ -28,6 +28,16 @@ var authenticate = function(req,res,next){
 	}
 };
 
+//force https
+adminRouter.all('*', function (req, res, next) {	
+	if(req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === 'http'){
+		res.redirect('https://' + req.headers.host  + '/admin' + req.url);
+	}
+	else{
+		next();
+	}
+});
+
 adminRouter.get('/connectedDevices', authenticate, function(req,res){
 	res.send(connectedDevices.getConnectedDevices());
 });
