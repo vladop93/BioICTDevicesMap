@@ -13,7 +13,7 @@ process.env.VCAP_SERVICES = (process.env.VCAP_SERVICES) ? process.env.VCAP_SERVI
       {
          "credentials": {
             "org": org,
-            "apiKey": apiKey",
+            "apiKey": apiKey,
             "apiToken": apiToken
          }
       }
