@@ -30,7 +30,7 @@ function iotfClient(options) {
 		this.iotfAppClient.on("deviceEvent", _.bind(this.onDeviceEvent, this));
 		this.iotfAppClient.on("deviceStatus", _.bind(this.onDeviceStatus, this));
 	}
-	this.iotfAppClient.connect();	
+	this.iotfAppClient.connect();
 }
 
 module.exports = iotfClient;
@@ -41,8 +41,8 @@ iotfClient.prototype.onDeviceStatus = function(deviceType, deviceId, payload, to
 	payload = JSON.parse(payload);
 	this.emit(deviceId + "_" + payload.Action, deviceType, deviceId, payload, topic);
 	this.emit(deviceType + "_" + payload.Action, deviceType, deviceId, payload, topic);
-	this.emit("+_" + payload.Action, deviceType, deviceId, payload, topic);	
-	this.emit("+_DeviceStatus", deviceType, deviceId, payload, topic);	
+	this.emit("+_" + payload.Action, deviceType, deviceId, payload, topic);
+	this.emit("+_DeviceStatus", deviceType, deviceId, payload, topic);
 };
 
 iotfClient.prototype.onDeviceEvent = function(deviceType, deviceId, eventType, format, payload){
@@ -59,9 +59,9 @@ iotfClient.prototype.subscribeToDevicesEvents = function(){
 		config.deviceType = (config.deviceType) ? config.deviceType : ["+"];
 		config.Ids = (config.Ids) ? config.Ids : ["+"];
 		config.events = (config.events) ? config.events : ["+"];
-		_.each(config.Ids, function(deviceID){				
+		_.each(config.Ids, function(deviceID){
 			_.each(config.events, function(event){
-				this.iotfAppClient.subscribeToDeviceEvents(config.deviceType, deviceID, event, "json");	
+				this.iotfAppClient.subscribeToDeviceEvents(config.deviceType, deviceID, event, "json");
 				if(config.subscribeToStatus){
 					this.iotfAppClient.subscribeToDeviceStatus(config.deviceType, "+");
 				}
@@ -77,11 +77,11 @@ iotfClient.prototype.sendCommand = function(deviceType, deviceID, command, paylo
 };
 
 iotfClient.prototype.createCommandsMethods = function createCommandsMethonds(){
-	//create send<message name>Message function 
-	_.each(this.devicesConfigs, 
+	//create send<message name>Message function
+	_.each(this.devicesConfigs,
 			function(config){
 		this[config.deviceType] = {};
-		_.each(config.commands, 
+		_.each(config.commands,
 				function(command){
 			var functionName = camelize('send_' + command + '_Message');
 			var funct =  _.bind(function(deviceID, payload) {
@@ -101,7 +101,7 @@ function getDevicesConfigs(file){
 		obj = {};
 	}
 	return obj;
-};
+}
 
 function getCredentials(){
 	var iotFcreds = null;
@@ -118,26 +118,24 @@ function getCredentials(){
 			"auth-token" : iotFcreds.apiToken
 	};
 	return config;
-};
+}
 
 function getApplicationID(){
 	if(appEnv.isLocal){
-		var appid = hashString(__dirname)
+		var appid = hashString(__dirname);
 		return appid;
 	}
 	else
-		return appEnv.name;	
-};
+		return appEnv.name;
+}
 
 function hashString(string){
-		var hash = 0;
-		if (string.length == 0) return hash;
-		for (i = 0; i < string.length; i++) {
-			char = string.charCodeAt(i);
-			hash = ((hash<<5)-hash)+char;
-			hash = hash & hash; // Convert to 32bit integer
-		}
-		return hash.toString();
-};
-
-
+	var hash = 0;
+	if (string.length === 0) return hash;
+	for (i = 0; i < string.length; i++) {
+		char = string.charCodeAt(i);
+		hash = ((hash<<5)-hash)+char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash.toString();
+}
