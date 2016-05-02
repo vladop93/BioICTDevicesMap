@@ -94,7 +94,16 @@ iotfClient.prototype.createCommandsMethods = function createCommandsMethonds(){
 	},this);
 };
 
-getCredentials = function (){
+function getDevicesConfigs(file){
+	var obj = fs.readJsonSync(file, {throws: false});
+	if(!obj){
+		console.log("cannot load devices info file");
+		obj = {};
+	}
+	return obj;
+};
+
+function getCredentials(){
 	var iotFcreds = null;
 	try{
 		iotFcreds = VCAP_SERVICES["iotf-service"][0].credentials;
@@ -104,18 +113,31 @@ getCredentials = function (){
 	}
 	var config = {
 			"org" : iotFcreds.org,
-			"id" :  appEnv.name,
+			"id" :  getApplicationID(),
 			"auth-key" : iotFcreds.apiKey,
 			"auth-token" : iotFcreds.apiToken
 	};
 	return config;
 };
 
-getDevicesConfigs = function getDevicesConfigs(file){
-	var obj = fs.readJsonSync(file, {throws: false});
-	if(!obj){
-		console.log("cannot load devices info file");
-		obj = {};
+function getApplicationID(){
+	if(appEnv.isLocal){
+		var appid = hashString(__dirname)
+		return appid;
 	}
-	return obj;
+	else
+		return appEnv.name;	
 };
+
+function hashString(string){
+		var hash = 0;
+		if (string.length == 0) return hash;
+		for (i = 0; i < string.length; i++) {
+			char = string.charCodeAt(i);
+			hash = ((hash<<5)-hash)+char;
+			hash = hash & hash; // Convert to 32bit integer
+		}
+		return hash.toString();
+};
+
+
