@@ -48,9 +48,9 @@ iotfClient.prototype.onDeviceStatus = function(deviceType, deviceId, payload, to
 iotfClient.prototype.onDeviceEvent = function(deviceType, deviceId, eventType, format, payload){
 	payload = (format === 'json') ? JSON.parse(payload).d : payload;
 	this.emit(deviceId + "_+", payload, deviceType, deviceId, eventType, format);
-	this.emit(deviceId + "_" + payload, deviceType, deviceId, eventType, format);
-	this.emit(deviceType + "_+",  payload, deviceType, deviceId, eventType, format);
-	this.emit(deviceType + "_"  +  payload, eventType, deviceType, deviceId, eventType, format);
+	this.emit(deviceId + "_" + eventType, payload, deviceType, deviceId, eventType, format);
+	this.emit(deviceType + "_+",  payload, payload, deviceType, deviceId, eventType, format);
+	this.emit(deviceType + "_"  +  eventType, payload, deviceType, deviceId, eventType, format);
 	this.emit("+", payload, deviceType, deviceId, eventType, format);
 };
 
