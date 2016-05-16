@@ -19,7 +19,7 @@ function cacheDevice(type, deviceID, payload){
 				var now = new Date();	
 				var currentTime = now.getTime();
 				cached_devices[type][deviceID].lastUpdateTime = currentTime;
-				cached_devices[type][deviceID].lastUpdatedate = now.toGMTString();
+				cached_devices[type][deviceID].lastUpdateDate = now.toGMTString();
 				_.extend(cached_devices[type][deviceID], payload);
 				break;
 			}
