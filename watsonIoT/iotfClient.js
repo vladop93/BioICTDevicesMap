@@ -43,6 +43,7 @@ iotfClient.prototype.onDeviceStatus = function(deviceType, deviceId, payload, to
 	this.emit(deviceType + "_" + payload.Action, deviceType, deviceId, payload, topic);
 	this.emit("+_" + payload.Action, deviceType, deviceId, payload, topic);
 	this.emit("+_DeviceStatus", deviceType, deviceId, payload, topic);
+	this.emit(deviceId +"_DeviceStatus", deviceType, deviceId, payload, topic);
 };
 
 iotfClient.prototype.onDeviceEvent = function(deviceType, deviceId, eventType, format, payload){
