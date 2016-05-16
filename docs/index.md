@@ -1,2 +1,2 @@
 ##Docs index
-* [Connected Devices Cache](docs/connectedDevicesCache.md)
+* [Connected Devices Cache](connectedDevicesCache.md)
