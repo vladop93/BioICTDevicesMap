@@ -1,19 +1,21 @@
-#Connected Devices Cache
+#Using Connected Devices Cache
 
-##In memory cache for all connected devices 
-Each device in the cache has the next properties
+All connected devices are mirrored in memory cache. 
+
+Every device has the following properties:
 * deviceID - the ID of the device
 * deviceType - the type of the device
-* lastUpdateTime - the last update time in milliseconds of the device attributes
-* lastUpdateDate - the last update time in GMT time of the device attributes
+* lastUpdateTime - the time in milliseconds since midnight of January 1, 1970 and the last update time of the device
+* lastUpdateDate - the date in GMT format of the last update time of the device
 
-In addition each device defines property for each payload received.
+In addition, the device object holds the device attributes and their values, based on the device events payload.
 
-For instance if your device sends payloads with "temperature" & "pressure" then the cached device will have `device.temperature` and `device.pressure` properties 
+For instance if a device sends an event with payload _"temperature = 10,pressure = 1000"_ then the cached device will have `device.temperature` and `device.pressure` properties 
 
 
 ##Usage
 ```javascript
+//get the connected devices cache object from any js file in the application
 var connectedDevices = require('workbenchLib').connectedDevicesCache;
 
 //Get an array of all the connected devices 
