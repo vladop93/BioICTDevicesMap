@@ -1,8 +1,26 @@
 [
     {
-      "deviceType": "+",
-      "subscribeToStatus" : true,
-      "Ids": ["+"],
-      "events": ["+"]
+        "deviceType": "Car",
+        "subscribeToStatus": true,
+        "Ids": [
+            "+"
+        ],
+        "events": [
+            "SendPosition",
+            "ModelChange"
+        ],
+        "commands": []
+    },
+    {
+        "deviceType": "GasStation",
+        "subscribeToStatus": true,
+        "Ids": [
+            "+"
+        ],
+        "events": [
+            "SendPosition",
+            "OctaneChange"
+        ],
+        "commands": []
     }
 ]

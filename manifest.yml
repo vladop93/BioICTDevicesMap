@@ -1,13 +1,15 @@
----
 applications:
-- services:
-  - IoTPlatform
-  disk_quota: 1024M
-  host: BioICTDevicesMap
-  name: BioICTDevicesMap
-  path: .
-  instances: 1
-  memory: 256M
+  - services:
+      - IoTPlatform
+      - Cloudant_DB
+    disk_quota: 1024M
+    host: BioICTDevicesMap
+    name: BioICTDevicesMap
+    path: .
+    instances: 1
+    memory: 256M
+    iotWbManagedServices:
+      - Cloudant_DB
 declared-services:
   IoTPlatform:
     label: iotf-service

@@ -21,7 +21,8 @@
         "camelize": "",
         "app-module-path": "",
         "basic-auth": "",
-        "helmet": ""
+        "helmet": "",
+        "cloudant": ""
     },
     "repository": {}
 }
